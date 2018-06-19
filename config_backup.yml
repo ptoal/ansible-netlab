@@ -1,0 +1,6 @@
+---
+- hosts: ios
+  connection: network_cli
+  tasks:
+    - ios_config:
+        backup: yes

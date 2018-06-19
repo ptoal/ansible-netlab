@@ -1,0 +1,3 @@
+ansible_user: redhat
+ansible_ssh_pass: redhat
+ansible_network_os: ios

@@ -1,0 +1,14 @@
+[ios]
+gateway ansible_host=192.168.99.100
+
+[vyos]
+vyos_core1 ansible_host=192.168.99.101
+vyos_core2 ansible_host=192.168.99.102
+
+[exos]
+exos_access_sw1 ansible_host=192.168.99.103
+
+[network:children]
+ios
+vyos
+exos
