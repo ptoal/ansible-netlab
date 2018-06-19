@@ -1,6 +1,9 @@
 ---
-- hosts: ios
+- name: a play to back up ios devices
+  hosts: ios
   connection: network_cli
+
   tasks:
-    - ios_config:
+    - name: back up IOS config
+      ios_config:
         backup: yes
