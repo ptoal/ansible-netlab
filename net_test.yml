@@ -1,5 +1,6 @@
 ---
-- hosts: ios
+- name: Test IOS devices
+  hosts: ios
   tasks:
     - name: Management interface is up on IOS devices
       ios_interface:
@@ -18,7 +19,8 @@
       ignore_errors: yes
       when: ansible_network_os == "ios"
 
-- hosts: vyos
+- name: Test VyOS devices
+  hosts: vyos
   tasks:
     - name: Management interface is up on VyOS devices
       vyos_interface:
@@ -36,20 +38,14 @@
           - "ping 192.168.99.1 count 3"
       register: test2
 
-- hosts: exos
+- name: Test EXOS devices
+  hosts: exos
   tasks:
     - name: Test reachability to management gateway on EXOS
       exos_command:
         commands:
           - 'ping vr "VR-Mgmt" 192.168.99.1'
       register: test2
-
-
-    # - name: Test reachability to ansible host
-    #   net_ping:
-    #     dest: "{{hostvars['ansible']['private_ip']}}"
-    #   register: test5
-    #   ignore_errors: yes
 
 - name: Generate report
   hosts: all
@@ -61,12 +57,12 @@
       delegate_to: localhost
       run_once: true
 
-    - name: debug outputs
-      debug:
-        var: "{{item}}"
-      with_items:
-        - test1
-        - test2
+    # - name: debug outputs
+    #   debug:
+    #     var: "{{item}}"
+    #   with_items:
+    #     - test1
+    #     - test2
         # - test3
         # - test4
         # - test5

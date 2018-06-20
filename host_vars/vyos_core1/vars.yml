@@ -1,3 +1,6 @@
 vyos_interfaces:
 - { name: "eth0", description: "Management", ipv4: "192.168.99.101/24", state: up}
+- { name: "eth1", description: "Link to GW", ipv4: "10.0.0.2", state: up}
+- { name: "eth2", description: "Link to exos_access_sw1", ipv4: "10.123.0.1/24", state: up}
+- { name: "eth3", description: "Link to vyos-core2", ipv4: "10.0.3.1/30", state: up}
 

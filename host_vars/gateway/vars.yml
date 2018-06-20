@@ -1,2 +1,6 @@
 ios_interfaces:
 - { name: "FastEthernet0/0", description: "Management", ipv4: "192.168.99.100/24", state: up}
+- { name: "FastEthernet0/1", description: "Link to vyos-core1", ipv4: "10.0.0.0/30", state: up}
+- { name: "FastEthernet1/0", description: "Link to vyos-core2", ipv4: "10.0.0.0/30", state: up}
+- { name: "FastEthernet4/0", description: "Link to Internet", ipv4: "1.1.1.2/30", state: up}
+ 
