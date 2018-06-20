@@ -1,0 +1,2 @@
+vyos_interfaces:
+- { name: "eth0", description: "Management", ipv4: "192.168.99.102/24", state: up}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Test</th>
+            {% for host in play_hosts %}
+                <th>{{ host }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+{% for test_case in test_suite %}
+        <tr>
+            <td>{{test_suite[test_case].name}}</td>
+            {% for host in play_hosts %}
+            <td
+            {% if not hostvars[host][test_case] is defined or hostvars[host][test_case]["skipped"] is defined %}> N/A 
+            {% elif hostvars[host][test_case]["failed"] is defined and hostvars[host][test_case]["failed"] %}style="background:red;"> Test Failed
+            {% else %}> Test Passed{% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+
+</body>
+</html>

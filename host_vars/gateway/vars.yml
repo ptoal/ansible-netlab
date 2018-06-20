@@ -1,0 +1,2 @@
+ios_interfaces:
+- { name: "FastEthernet0/0", description: "Management", ipv4: "192.168.99.100/24", state: up}

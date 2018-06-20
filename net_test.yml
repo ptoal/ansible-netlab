@@ -1,0 +1,73 @@
+---
+- hosts: ios
+  tasks:
+    - name: Management interface is up on IOS devices
+      ios_interface:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        state: "{{ item.state }}"
+      register: test1
+      loop: "{{ ios_interfaces }}"
+      when: item.description == "Management"
+      ignore_errors: yes
+
+    - name: Test reachability to management gateway on IOS
+      ios_ping:
+        dest: "192.168.99.1"
+      register: test2
+      ignore_errors: yes
+      when: ansible_network_os == "ios"
+
+- hosts: vyos
+  tasks:
+    - name: Management interface is up on VyOS devices
+      vyos_interface:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        state: "{{ item.state }}"
+      register: test1
+      loop: "{{ vyos_interfaces }}"
+      when: item.description == "Management"
+      ignore_errors: yes
+
+    - name: Test reachability to management gateway on VyOS
+      vyos_command:
+        commands:
+          - "ping 192.168.99.1 count 3"
+      register: test2
+
+- hosts: exos
+  tasks:
+    - name: Test reachability to management gateway on EXOS
+      exos_command:
+        commands:
+          - 'ping vr "VR-Mgmt" 192.168.99.1'
+      register: test2
+
+
+    # - name: Test reachability to ansible host
+    #   net_ping:
+    #     dest: "{{hostvars['ansible']['private_ip']}}"
+    #   register: test5
+    #   ignore_errors: yes
+
+- name: Generate report
+  hosts: all
+  tasks:
+    - name: create HTML report
+      template:
+        src: j2/report.j2
+        dest: ./generated_report.html
+      delegate_to: localhost
+      run_once: true
+
+    - name: debug outputs
+      debug:
+        var: "{{item}}"
+      with_items:
+        - test1
+        - test2
+        # - test3
+        # - test4
+        # - test5
+        # - test6
