@@ -19,6 +19,13 @@
       ignore_errors: yes
       when: ansible_network_os == "ios"
 
+    - name: Test reachability to internet
+      ios_ping:
+        dest: "1.1.1.1"
+      register: test3
+      ignore_errors: yes
+      when: ansible_network_os == "ios"
+
 - name: Test VyOS devices
   hosts: vyos
   tasks:
@@ -38,6 +45,14 @@
           - "ping 192.168.99.1 count 3"
       register: test2
 
+    - name: Test reachability to management gateway on VyOS
+      vyos_command:
+        commands:
+          - "ping 1.1.1.1 count 2"
+      register: result
+
+    - set_fact: test3
+
 - name: Test EXOS devices
   hosts: exos
   tasks:
@@ -49,6 +64,14 @@
 
 - name: Generate report
   hosts: all
+  vars:
+   test_suite:
+     test1:
+       name: "Management interface up"
+     test2:
+       name: "Test reachability to management gateway"
+     test3:
+       name: "Test Internet connectivity"
   tasks:
     - name: create HTML report
       template:

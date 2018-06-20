@@ -1,0 +1,38 @@
+- name: Configure Interfaces on IOS
+  hosts: ios
+  tasks:
+    - name: Configure interface on IOS
+      ios_interface:
+          name: "{{ item.name }}"
+          description: "{{ item.description }}"
+          state: "{{ item.state }}"
+      loop: "{{ ios_interfaces }}"
+
+    - name: Configure L3 on IOS
+      ios_l3_interface:
+        aggregate: "{{ ios_l3_interfaces }}"
+
+
+- name: Configure Interfaces on VyOS
+  hosts: vyos
+  tasks:
+    - name: Configure loopback interface
+      vyos_config:
+        lines:
+         - "set interface loopback lo address {{ item.ipv4 }}"
+      loop: "{{ vyos_l3_interfaces }}"
+      when: item.name == 'lo'
+
+    - name: Configure Interface on VyOS
+      vyos_interface:
+        name: "{{ item.name }}"
+        description: "'{{ item.description }}'"
+        state: "{{ item.state }}"
+      loop: "{{ vyos_interfaces }}"
+      when: item.name != 'lo'
+
+    - name: Configure L3 Interface on VyOS
+      vyos_l3_interface:
+        aggregate: "{{ vyos_l3_interfaces }}"
+
+

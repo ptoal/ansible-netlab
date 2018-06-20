@@ -1,6 +1,13 @@
 ios_interfaces:
-- { name: "FastEthernet0/0", description: "Management", ipv4: "192.168.99.100/24", state: up}
-- { name: "FastEthernet0/1", description: "Link to vyos-core1", ipv4: "10.0.0.0/30", state: up}
-- { name: "FastEthernet1/0", description: "Link to vyos-core2", ipv4: "10.0.0.0/30", state: up}
-- { name: "FastEthernet4/0", description: "Link to Internet", ipv4: "1.1.1.2/30", state: up}
- 
+- { name: "Loopback0", description: "Loopback", state: up}
+- { name: "FastEthernet0/0", description: "Management",state: up}
+- { name: "FastEthernet0/1", description: "Link to vyos-core1", state: up}
+- { name: "FastEthernet2/0", description: "Link to vyos-core2", state: up}
+- { name: "FastEthernet4/0", description: "Link to Internet",  state: up}
+
+ios_l3_interfaces:
+- { name: "Loopback0", ipv4: "172.16.0.100/32"}
+- { name: "FastEthernet0/0", ipv4: "192.168.99.100/24"}
+- { name: "FastEthernet0/1", ipv4: "10.0.0.1/30"}
+- { name: "FastEthernet2/0", ipv4: "10.0.1.1/30"}
+- { name: "FastEthernet4/0", ipv4: "1.1.1.2/30"}

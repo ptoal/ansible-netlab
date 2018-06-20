@@ -1,9 +1,16 @@
 ---
 - name: a play to back up ios devices
   hosts: ios
-  connection: network_cli
 
   tasks:
     - name: back up IOS config
       ios_config:
+        backup: yes
+
+- name: a play to back up vyos devices
+  hosts: vyos
+
+  tasks:
+    - name: back up VyOS config
+      vyos_config:
         backup: yes

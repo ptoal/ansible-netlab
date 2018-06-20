@@ -1,0 +1,11 @@
+{% for intf in vyos_l3_interfaces -%}
+{% if intf.name == 'lo' %}
+set protocols ospf parameters router-id {{ intf.ipv4 | ipaddr('address') }}
+set protocols ospf log-adjacency-changes
+set protocols ospf default-information originate always
+set protocols ospf default-information originate metric 10
+set protocols ospf default-information originate metric-type 2
+{% else %}
+set protocols ospf area 0 network {{ intf.ipv4 | ipaddr('network/prefix') }}
+{% endif -%}
+{% endfor -%}

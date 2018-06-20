@@ -1,6 +1,1 @@
 ---
-   test_suite:
-     test1:
-       name: "Management interface up"
-     test2:
-       name: "Test reachability to management gateway"

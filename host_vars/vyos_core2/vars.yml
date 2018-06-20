@@ -1,6 +1,14 @@
 vyos_interfaces:
-- { name: "eth0", description: "Management", ipv4: "192.168.99.102/24", state: up}
-- { name: "eth1", description: "Link to vyos-core1", ipv4: "10.0.3.2/30", state: up}
-- { name: "eth2", description: "Link to exos_access_sw1", ipv4: "10.123.0.2/24", state: up}
-- { name: "eth3", description: "Link to GW", ipv4: "10.0.1.2", state: up}
+- { name: "lo", description: "Loopback", state: up}
+- { name: "eth0", description: "Management",state: up}
+- { name: "eth1", description: "Link to vyos-core1", state: up}
+- { name: "eth2", description: "Link to exos_access_sw1", state: up}
+- { name: "eth3", description: "Link to GW", state: up}
+
+vyos_l3_interfaces:
+- { name: "lo", ipv4: "172.16.0.102/32"}
+- { name: "eth0", ipv4: "192.168.99.102/24"}
+- { name: "eth1", ipv4: "10.0.3.2/30"}
+- { name: "eth2", ipv4: "10.123.0.2/24"}
+- { name: "eth3", ipv4: "10.0.1.2/30"}
 
