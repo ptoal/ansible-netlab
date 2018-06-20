@@ -1,0 +1,28 @@
+- name: Gather IOS Facts
+  hosts: ios
+  tasks:
+    - name: Gather facts from IOS
+      ios_facts:
+
+- name: Gather VyOS Facts
+  hosts: vyos
+  tasks:
+    - name: Gather facts from VyOS
+      vyos_facts:
+
+- name: Generate Fact Report
+  hosts: all
+  vars:
+    report_facts:
+      - ansible_net_hostname
+      - ansible_net_version
+      - ansible_net_serialnum
+      - ansible_net_memtotal_mb
+      - ansible_net_model
+  tasks:
+    - name: create HTML report
+      template:
+        src: j2/sysinfo_report.j2
+        dest: ./sysinfo_report.html
+      delegate_to: localhost
+      run_once: true

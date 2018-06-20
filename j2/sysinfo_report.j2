@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Fact</th>
+            {% for host in play_hosts %}
+                <th>{{ host }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for fact in report_facts %}
+            <tr>
+            <td>{{ fact }}</td>
+                {% for host in play_hosts %}
+                <td>
+                {% if hostvars[host][fact] is defined %} {{ hostvars[host][fact] }}
+                {% else %}N/A
+                {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        <tr></tr>            
+    </tbody>
+
+</table>
+
+</body>
+</html>
